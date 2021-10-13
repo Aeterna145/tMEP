@@ -1,0 +1,3 @@
+displayName = tMEP: Modded Expansion Project (READ DESC.)
+author = Æterna
+version = 0.25

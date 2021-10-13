@@ -1,0 +1,55 @@
+tMEP: The Terraria Modded Expansion Project
+===========================================
+(Scroll to bottom for version notes for those interested in simply testing the mod)
+
+Welcome to a new start, Terrarian.
+
+The Terraria Modded Expansion Project is a mod designated to expand Terraria past its limits.
+Over the course of many updates and additions, we will be transforming Terraria from what it is currently to a more "MMO" style game along the veins of Destiny, World of Warcraft, and others.
+From lore, to raids, to multiplayer activities, to factions and so much more. Terraria will never be the same.
+
+As of late, the current release you are viewing right now will be a stable testing beta for the concept, as well as a general test of features and garnering of community feedback.
+Nothing here will be finalized until the release of "A Terrarian's Dawn", coming sometime either December 2021 or Summer 2022
+
+HOW THIS WORKS:
+=============
+tMEP will be updated consistently with a variety of releases and fixes.
+How tMEP updates and what it adds will be divulged in the version notes in this description, and on the Discord's update blog.
+
+There are 4 kinds of updates:
+-Major Content Updates (Expansion Releases): Expansions are released as major content updates. We currently have a few planned and a few still in development.
+-Minor Content Updates (Raid Releases, Seasonal Content): Smaller content releases, such as raids, are released separately while we bug test them for the first week of a major content update.
+-Patches (Bug fixes, balancing changes, etc.): These are mainly to fix up the game, change around balancing, and make the mod an overall enjoyable experience.
+-Hotfixes: Immediate changes and updates made to the mod in order to swiftly fix anything game breaking.
+
+SCHEDULE:
+=============
+Our current release schedule is undetermined, given that college and work have my hands tied. However, this doesn't mean I'm not working behind the scenes.
+As of right now, we have a few things planned. Here's what to expect in the coming months:
+
+- tMEP: A Terrarian's Dawn (Expansion)
+- Day One ATD Release Hotfix
+- Week One Patch
+- Subclass Quests (Minor Content)
+- Reception Patch
+- Sins of the Past (Raid) 
+- World's First Raid Event (Held in Discord server)
+- Raid Hotfix (After Day One)
+
+VERSION NOTES:
+==============
+Here is what you'll see in Version 0.25:
+- REVIVAL SYSTEM TESTING
+(Testing should include multiplayer cooperation; not reviving more than one player, making sure the projectile actually spawns, etc.)
+- CLASS / SUBCLASS SYSTEM TESTING [Round One: Abilities / Cleric basic concept testing]
+(Testing should include both single and multiplayer cooperation; abilities cast are correct, subclasses are set right, stats changed accordingly, etc.)
+
+NEXT UPDATE:
+=============
+Here's what to expect in Version 0.3:
+- REVIVAL SYSTEM TESTING / FINALIZATION
+- CLASS / SUBCLASS SYSTEM TESTING [Round Two: Multi-subclass and class compatibility]
+- NPC REPUTATION SYSTEM (NOT Happiness)
+- XP SYSTEMS
+- QUEST SYSTEM TESTING [Round One: Proof of concept]
+- MULTIPLAYER FINE-TUNING
