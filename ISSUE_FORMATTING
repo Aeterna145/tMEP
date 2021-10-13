@@ -1,0 +1,37 @@
+Issue Formatting In A Shellnut:
+===============================
+I've boiled this down to a simple format:
+
+TITLE: 
+[IDENTIFIER TAG]: Issue Title
+BODY:
+Issue (Expanded):
+Notes:
+
+The ID Tag is a way of knowing what an issue is and what its status is.
+The Issue Title is obvious.
+Issue (Expanded) refers to explaining your issue more so we get the full picture.
+Notes is any additional information, such as what caused the issue, proposed fixes, etc.
+
+There are various different flairs:
+[Type / Severity]
+Types:
+K = Known Issue: Previously seen issue that has either been noticed by developers or is simply a running issue.
+G(S) = Glitch (Soft): A "soft" glitch is a glitch that is relatively small and not a high priority to fix.
+G(H) = Glitch (Hard): A "hard" glitch is a glitch that should be investigated immediately due to severity.
+B = Bug Issue: Some form of bug, varies in severity.
+SL = Soft Lock: Unintentional soft locks that prevent progression or player usage of the mod.
+C = Crash: Crash errors caused by the mod that should be looked into immediately.
+CO = Compatibility: Compatibility errors that cause one or more mods to not function properly (or at all) while tMEP is active.
+
+Severities:
+DB = Don't Bother: An issue so insignificant it really isn't worth looking into.
+MI = Minor Inconvenience: Something that, while annoying, isn't of immediate concern but worth mentioning.
+RP = Recurring Problem: Massively reported issue that should be looked into immediately.
+GC = Growing Concern: Something that should likely be looked into soon.
+GB = Game Breaking: Something that breaks the game entirely, should be looked into without delay.
+CB = Computer Bricking: Something that can literally destroy a PC (this severity will likely never be used)
+
+DEVELOPER ONLY SEVERITIES:
+INV = Investigating: Currently looking into a developer-posted issue.
+F = Fixed: Reached a possible fix for the developer-posted issue that should be tested.
