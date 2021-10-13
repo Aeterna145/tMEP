@@ -1,4 +1,6 @@
 # tMEP: TERRARIA MODDED EXPANSION PROJECT
+**DISCLAIMER: This mod is intended to be played on v1.4 Alpha of tModLoader! Do not attempt to run this mod on v1.3!**
+
 Welcome to tMEP, a mod project brought to you by me, Æterna.
 
 This mod seeks to push Terraria past its limits and create an all new experience. Classes and subclasses, raids, multiplayer activities, lore, expanding story, the whole 9 yards!
