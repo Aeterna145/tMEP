@@ -1,15 +1,18 @@
-﻿using Terraria;
+﻿using MEPMod.Content.Buffs;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace MEPMod.Common.Class.SubclassAbilities.Cleric
 {
-    public class Absorbance : HoldOutAbility
+    public class Absorbance : BaseAbility
     {
         public override void SetStaticDefaults(){
             AbilityName = "Absorbance"; //name is the same (usually)
-            AbilityEnergyCost = 5; //costs 5 energy every 30 ticks (interval logic below)
+            AbilityEnergyCost = 50;
         }
         public override void Cast(Player player){
             if (player.whoAmI == Main.myPlayer){
+                player.AddBuff(ModContent.BuffType<AbsorbanceBuff>(), 600);
                 Main.NewText("Absorbance Successfully Cast (This is test text and will not be used post v0.25)");
             }
         }

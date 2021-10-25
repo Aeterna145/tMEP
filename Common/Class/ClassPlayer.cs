@@ -5,6 +5,7 @@ using Terraria.GameInput;
 using MEPMod.Common.Class.SubclassAbilities.Cleric;
 using Terraria.ModLoader.IO;
 using MEPMod.Common.Class.SubclassAbilities.Warlock;
+using MEPMod.Content.Buffs;
 
 namespace MEPMod.Common.Class
 {
@@ -14,12 +15,14 @@ namespace MEPMod.Common.Class
         public int EnergyCurrent;
         public int EnergyMax;
         public int EnergyRegen;
-
         //Class / subclass vars
-        public int CurrentClass { get; internal set; }
-        public int CurrentSubclass { get; internal set; }
+        public int CurrentClass;
+        public int CurrentSubclass;
+        public ClassID classID;
+        public SubclassID subclassID;
         //Hotkey vars
         public static ModKeybind tempSubclassSwitch;
+
         private (ModKeybind keybind, AbilityType ability)[] AbilityKeybinds = null!;
         public override void Load(){
             AbilityKeybinds = new (ModKeybind, AbilityType)[]{
@@ -32,10 +35,12 @@ namespace MEPMod.Common.Class
         public override void SaveData(TagCompound tag){
             tag[nameof(CurrentClass)] = CurrentClass;
             tag[nameof(CurrentSubclass)] = CurrentSubclass;
+            tag[nameof(EnergyCurrent)] = EnergyCurrent;
         }
         public override void LoadData(TagCompound tag){
             CurrentClass = tag.Get<int>(nameof(CurrentClass));
             CurrentSubclass = tag.Get<int>(nameof(CurrentSubclass));
+            EnergyCurrent = tag.Get<int>(nameof(EnergyCurrent));
         }
         public virtual void AbilitySwitch(){
             switch (CurrentClass){
@@ -57,7 +62,7 @@ namespace MEPMod.Common.Class
                             SetAbilities<Absorbance, UniversalSoul, Wellspring, TimewatchersGrip>();
                             break;
                         case 6: //Warlock abilities
-                            SetAbilities<Firestorm, GlacialWrath, SpellOfReaping, CoronalEjection>();
+                            SetAbilities<LightningRod, GlacialWrath, SpellOfReaping, CoronalEjection>();
                             break;
                         case 7: //Do nothing
                             break;
@@ -71,27 +76,27 @@ namespace MEPMod.Common.Class
             if (player.whoAmI == Main.myPlayer){
                 switch (CurrentClass){
                     case 1:
-                        player.GetDamage(DamageClass.Melee) += 1.10F;
+                        player.GetDamage(DamageClass.Melee) *= 1.10F;
                         break;
                     case 2:
-                        player.GetDamage(DamageClass.Magic) += 1.10F;
+                        player.GetDamage(DamageClass.Magic) *= 1.10F;
                         break;
                     case 3:
-                        player.GetDamage(DamageClass.Ranged) += 1.10F;
+                        player.GetDamage(DamageClass.Ranged) *= 1.10F;
                         break;
                     case 4:
-                        player.GetDamage(DamageClass.Summon) += 1.10F;
+                        player.GetDamage(DamageClass.Summon) *= 1.10F;
                         break;
                 }
                 switch (CurrentSubclass){
                     case 5: //Cleric
-                        player.GetDamage(DamageClass.Magic) += 1.35F;
+                        player.GetDamage(DamageClass.Magic) *= 1.35F;
                         player.statDefense -= 10;
                         player.statLifeMax2 += 50;
                         player.statManaMax2 += 100;
                         break;
                     case 6: //Warlock
-                        player.GetDamage(DamageClass.Magic) += 1.50F;
+                        player.GetDamage(DamageClass.Magic) *= 1.50F;
                         player.statDefense += 20;
                         player.statLifeMax2 += 75;
                         player.statManaMax2 += 150;
@@ -106,7 +111,12 @@ namespace MEPMod.Common.Class
         public override void ProcessTriggers(TriggersSet triggersSet) {
             foreach ((ModKeybind keybind, AbilityType ability) in AbilityKeybinds) {
                 if (ability is null) continue;
+                if (EnergyCurrent < ability.AbilityEnergyCost){
+                    if (Player.whoAmI == Main.myPlayer) Main.NewText("Not enough energy to cast!");
+                    continue;
+                }
                 if (ability is BaseAbility baseAbility && baseAbility.CanCast(Player) && keybind.JustPressed){
+                    EnergyCurrent -= baseAbility.AbilityEnergyCost;
                     baseAbility.Cast(Player);
                     Main.NewText(Player.name + " casted " + ability.AbilityName + "!");
                     if (Player.whoAmI == Main.myPlayer){
@@ -115,6 +125,7 @@ namespace MEPMod.Common.Class
                     }
                 }
                 if (ability is HoldOutAbility holdOutAbility && keybind.Current){
+                    EnergyCurrent -= holdOutAbility.AbilityEnergyCost;
                     holdOutAbility.Cast(Player);
                     Main.NewText(Player.name + " casted " + ability.AbilityName + "!");
                     if (Player.whoAmI == Main.myPlayer){
@@ -131,6 +142,7 @@ namespace MEPMod.Common.Class
                         chargeAbility.AbilityChargeTime = chargeAbility.ResetTimer;
                     }
                     if (chargeAbility.ChargeTimer == 0){
+                        EnergyCurrent -= chargeAbility.AbilityEnergyCost;
                         chargeAbility.Cast(Player);
                         Main.NewText(Player.name + " casted " + ability.AbilityName + "!");
                         if (Player.whoAmI == Main.myPlayer){
@@ -153,9 +165,23 @@ namespace MEPMod.Common.Class
             AbilityKeybinds[2].ability = ModContent.GetInstance<T3>();
             AbilityKeybinds[3].ability = ModContent.GetInstance<T4>();
         }
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit){
+            AbsorbanceBuff abs = new();
+            if (Player.HasBuff<AbsorbanceBuff>() && abs.AbsorbTimer > 600){
+                abs.DamageAbsorbed += (int)damage;
+                damage = 0;
+            }
+        }
         public override void PostUpdateBuffs() => SetHandler(Player);
         public override void PostUpdateMiscEffects(){
             AbilitySwitch();
+        }
+        public override void ResetEffects()
+        {
+            EnergyCurrent += EnergyRegen;
+            if (EnergyCurrent > EnergyMax) EnergyCurrent = EnergyMax;
+            EnergyMax = 200;
+            EnergyRegen = (int)0.25;
         }
         public override void Unload(){
             AbilityKeybinds = null!;

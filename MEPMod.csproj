@@ -11,13 +11,16 @@
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\MenuAssets\ATD\" />
+    <Folder Include="Assets\Sounds\Misc\" />
+    <Folder Include="Assets\Sounds\Item\" />
+    <Folder Include="Assets\Sounds\NPC\" />
     <Folder Include="Common\Class\SubclassAbilities\Berserker\" />
     <Folder Include="Common\Class\SubclassAbilities\Paladin\" />
     <Folder Include="Content\Items\Consumables\TempClassSubclass\" />
     <Folder Include="Content\Items\Consumables\Summon\" />
     <Folder Include="Content\Items\Consumables\Potions\" />
     <Folder Include="Content\Items\Equipables\Armor\" />
-    <Folder Include="Content\Items\Equipables\Accessories\" />
     <Folder Include="Content\Items\Equipables\Cosmetics\" />
     <Folder Include="Content\Items\Equipables\Vanity\" />
     <Folder Include="Content\Items\Weapons\Mage\Cleric\" />
@@ -28,7 +31,6 @@
     <Folder Include="Content\Items\Weapons\Ranger\Gunner\" />
     <Folder Include="Content\Items\Weapons\Summoner\Projector\" />
     <Folder Include="Content\Items\Weapons\Summoner\Whisperer\" />
-    <Folder Include="Content\Tiles\" />
     <Folder Include="Content\NPCs\Enemy\" />
     <Folder Include="Content\NPCs\Town\" />
   </ItemGroup>
