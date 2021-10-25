@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "WNVOwnZAQxSJDdSXgFxCcFA6R5KLd474sTVNMmWBtnc5kHD5ecEhJc9UgUYAzamq75fE6eT+im2YjtBzo0CDew==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dligh\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Beta\\Mod Sources\\MEPMod\\MEPMod.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dligh\\.nuget\\packages\\tmodloader.codeassist\\0.1.2\\tmodloader.codeassist.0.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,16 +1,30 @@
-﻿using MEPMod.Common.Class;
-using MEPMod.Common.Class.SubclassAbilities.Cleric;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace MEPMod.Content.Buffs
 {
-    class AbsorbanceBuff : ModBuff
+    public class AbsorbanceBuff : ModBuff
     {
-        //Cleric Ability 1
+        public int DamageAbsorbed;
+        private int DamageAbsorbLimit = 1000;
+        private int DamageReturn;
+        public int AbsorbTimer = 600;
+
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Absorbance");
+            Description.SetDefault("Absorbing damage!");
+            Main.buffNoTimeDisplay[Type] = false;
+            Main.debuff[Type] = false;
+        }
         public override void Update(Player player, ref int buffIndex)
         {
-            base.Update(player, ref buffIndex);
+            AbsorbTimer--;
+            if (DamageAbsorbed > DamageAbsorbLimit) DamageAbsorbed = DamageAbsorbLimit;
+            if (AbsorbTimer == 0)
+            {
+
+            }
         }
     }
 }
