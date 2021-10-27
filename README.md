@@ -17,3 +17,14 @@ https://discord.gg/pT6meDuurH
 # What's To Come:
 There's not much here yet. 
 Don't fret! This Repo will be updated... as soon as I get off my ass to do so.
+
+# Credits:
+Thank you to these wonderful users who have assisted me in making this mod come to fruition!
+
+Code Help:
+- Exterminator99
+- AbsoluteAquarian (Dr. Serous)
+- Mirsario
+
+Sprite Help:
+- Arcri
