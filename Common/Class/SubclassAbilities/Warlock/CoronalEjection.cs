@@ -2,15 +2,25 @@
 
 namespace MEPMod.Common.Class.SubclassAbilities.Warlock
 {
-    public class CoronalEjection : HoldOutAbility
+    public class CoronalEjection : BaseAbility
     {
+        private int EjectionTimer = 300;
         public override void SetStaticDefaults(){
             AbilityName = "Coronal Ejection";
-            AbilityDamage = 100;
-            AbilityEnergyCost = 15;
+            AbilityDamage = 250;
+            AbilityEnergyCost = 150;
         }
         public override void Cast(Player player){
-            base.Cast(player);
+            EjectionTimer--;
+            if (EjectionTimer > 0)
+            {
+                //do projectile shit here
+            }
+            if (EjectionTimer < 0)
+            {
+                //end projectile here
+                EjectionTimer = 300;
+            }
         }
     }
 }

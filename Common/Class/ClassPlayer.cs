@@ -22,6 +22,7 @@ namespace MEPMod.Common.Class
         public SubclassID subclassID;
         //Hotkey vars
         public static ModKeybind tempSubclassSwitch;
+        public static ModKeybind abilityAltKey;
 
         private (ModKeybind keybind, AbilityType ability)[] AbilityKeybinds = null!;
         public override void Load(){
@@ -31,6 +32,7 @@ namespace MEPMod.Common.Class
                 (KeybindLoader.RegisterKeybind(Mod, "Third Ability", Keys.V), null),
                 (KeybindLoader.RegisterKeybind(Mod, "Ultimate Ability", Keys.F), null)
             };
+            abilityAltKey = KeybindLoader.RegisterKeybind(Mod, "Alternate Key", Keys.C);
         }
         public override void SaveData(TagCompound tag){
             tag[nameof(CurrentClass)] = CurrentClass;
@@ -59,6 +61,7 @@ namespace MEPMod.Common.Class
                 case 2:
                     switch (CurrentSubclass){
                         case 5: //Cleric abilities
+                            Player.AddBuff(ModContent.BuffType<SpiritOfTheMender>(), -1);
                             SetAbilities<Absorbance, UniversalSoul, Wellspring, TimewatchersGrip>();
                             break;
                         case 6: //Warlock abilities
@@ -111,10 +114,6 @@ namespace MEPMod.Common.Class
         public override void ProcessTriggers(TriggersSet triggersSet) {
             foreach ((ModKeybind keybind, AbilityType ability) in AbilityKeybinds) {
                 if (ability is null) continue;
-                if (EnergyCurrent < ability.AbilityEnergyCost){
-                    if (Player.whoAmI == Main.myPlayer) Main.NewText("Not enough energy to cast!");
-                    continue;
-                }
                 if (ability is BaseAbility baseAbility && baseAbility.CanCast(Player) && keybind.JustPressed){
                     EnergyCurrent -= baseAbility.AbilityEnergyCost;
                     baseAbility.Cast(Player);
@@ -133,12 +132,23 @@ namespace MEPMod.Common.Class
                         Main.NewText("This ability's energy cost is " + ability.AbilityEnergyCost);
                     }
                 }
+                if (ability is UniversalSoul universalSoul){
+                    if (abilityAltKey.Current){
+                        universalSoul.TypeSwitchTimer--;
+                        if (universalSoul.TypeSwitchTimer < 0){
+                            universalSoul.SoulType++;
+                            if (Player.whoAmI == Main.myPlayer) Main.NewText("[DEBUG]: Soul Type Switched");
+                            universalSoul.TypeSwitchTimer = 90;
+                            if (universalSoul.SoulType > 2) universalSoul.SoulType = 0;
+                        }
+                    }
+                }
                 if (ability is ChargeAbility chargeAbility){
                     if (keybind.Current){ 
                         chargeAbility.ChargeTimer--;
                     }
                     if (keybind.JustReleased && chargeAbility.ChargeTimer > 0){
-                        if (Player.whoAmI == Main.myPlayer) Main.NewText("Charge timer reset");
+                        if (Player.whoAmI == Main.myPlayer) Main.NewText("[DEBUG]: Charge timer reset");
                         chargeAbility.AbilityChargeTime = chargeAbility.ResetTimer;
                     }
                     if (chargeAbility.ChargeTimer == 0){
@@ -165,26 +175,36 @@ namespace MEPMod.Common.Class
             AbilityKeybinds[2].ability = ModContent.GetInstance<T3>();
             AbilityKeybinds[3].ability = ModContent.GetInstance<T4>();
         }
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit){
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit){
             AbsorbanceBuff abs = new();
             if (Player.HasBuff<AbsorbanceBuff>() && abs.AbsorbTimer > 600){
-                abs.DamageAbsorbed += (int)damage;
-                damage = 0;
+                abs.DamageAbsorbed += damage;
+                damage /= 2;
+                crit = false;
+            }
+        }
+        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit){
+            AbsorbanceBuff abs = new();
+            if (Player.HasBuff<AbsorbanceBuff>() && abs.AbsorbTimer > 600){
+                abs.DamageAbsorbed += damage;
+                damage /= 2;
+                crit = false;
             }
         }
         public override void PostUpdateBuffs() => SetHandler(Player);
         public override void PostUpdateMiscEffects(){
+            EnergyCurrent += EnergyRegen;
+            if (EnergyCurrent > EnergyMax) EnergyCurrent = EnergyMax;
             AbilitySwitch();
         }
         public override void ResetEffects()
         {
-            EnergyCurrent += EnergyRegen;
-            if (EnergyCurrent > EnergyMax) EnergyCurrent = EnergyMax;
             EnergyMax = 200;
-            EnergyRegen = (int)0.25;
+            EnergyRegen = 1;
         }
         public override void Unload(){
             AbilityKeybinds = null!;
+            abilityAltKey = null;
         }
     }
     //Credit to ExterminatorX99 for help with the code.

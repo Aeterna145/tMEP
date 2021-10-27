@@ -21,9 +21,8 @@ namespace MEPMod.Content.Buffs
         {
             AbsorbTimer--;
             if (DamageAbsorbed > DamageAbsorbLimit) DamageAbsorbed = DamageAbsorbLimit;
-            if (AbsorbTimer == 0)
-            {
-
+            if (AbsorbTimer == 0){
+                AbsorbTimer = 600;
             }
         }
     }

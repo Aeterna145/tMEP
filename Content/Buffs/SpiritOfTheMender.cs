@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Terraria;
+using Terraria.ModLoader;
 
 namespace MEPMod.Content.Buffs
 {
-    class SpiritOfTheMender
+    public class SpiritOfTheMender : ModBuff
     {
-        //Cleric Passive
+        public override void SetStaticDefaults(){
+            DisplayName.SetDefault("Spirit of the Mender");
+            Description.SetDefault("You revive allies twice as fast");
+            Main.buffNoTimeDisplay[Type] = true;
+            Main.debuff[Type] = false;
+        }
     }
 }

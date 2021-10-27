@@ -13,7 +13,6 @@ namespace MEPMod.Common.Class.SubclassAbilities.Cleric
         public override void Cast(Player player){
             if (player.whoAmI == Main.myPlayer){
                 player.AddBuff(ModContent.BuffType<AbsorbanceBuff>(), 600);
-                Main.NewText("Absorbance Successfully Cast (This is test text and will not be used post v0.25)");
             }
         }
     }

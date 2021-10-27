@@ -24,7 +24,7 @@ There are 4 kinds of updates:
 
 SCHEDULE:
 =============
-Our current release schedule is undetermined, given that college and work have my hands tied. However, this doesn't mean I'm not working behind the scenes.
+The current release schedule is undetermined, given that college and work have my hands tied. However, this doesn't mean I'm not working behind the scenes.
 As of right now, we have a few things planned. Here's what to expect in the coming months:
 
 - tMEP: A Terrarian's Dawn (Expansion)
@@ -40,15 +40,25 @@ VERSION NOTES:
 ==============
 Here is what you'll see in Version 0.25:
 - REVIVAL SYSTEM TESTING
-(Testing should include multiplayer cooperation; not reviving more than one player, making sure the projectile actually spawns, etc.)
-- CLASS / SUBCLASS SYSTEM TESTING [Round One: Abilities / Cleric basic concept testing]
-(Testing should include both single and multiplayer cooperation; abilities cast are correct, subclasses are set right, stats changed accordingly, etc.)
+TESTING OBJECTIVES:
++ Multiplayer compatibility,
++ Revive Anchor spawns and is interactable,
++ Player is revived and teleported to proper location,
++ Test for all players, not just your own
+
+- CLASS / SUBCLASS SYSTEM TESTING [Round One: Abilities / Cleric and Warlock basic concept testing]
+*Ability functions are limited to test text for PoC. Will be implemented in v0.25.5 or v0.3.
+TESTING OBJECTIVES: 
++ Single and Multiplayer compatibility, 
++ Abilities cast properly, 
++ Subclasses switch properly (stats change accordingly), 
++ Abilities execute as written
 
 NEXT UPDATE:
 =============
 Here's what to expect in Version 0.3:
 - REVIVAL SYSTEM TESTING / FINALIZATION
-- CLASS / SUBCLASS SYSTEM TESTING [Round Two: Multi-subclass and class compatibility]
+- CLASS / SUBCLASS SYSTEM TESTING [Round Two: Mage AND Knight (melee) compatibility]
 - NPC REPUTATION SYSTEM (NOT Happiness)
 - XP SYSTEMS
 - QUEST SYSTEM TESTING [Round One: Proof of concept]
