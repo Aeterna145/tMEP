@@ -17,7 +17,6 @@ namespace MEPMod.Common.Class.Revive
                 if (revivePointTimer == 0){ //if the revive timer is at or below 0...
                     revivePoint = Main.player[i].Center; //set the player's position to the revive position
                     Player.ChangeSpawn((int)revivePoint.X, (int)revivePoint.Y);
-                    Main.NewText("DEBUG: Revive point set.");
                     revivePointTimer = 90; //reset the timer manually
                 }// end of logic pt.I
                 if (Main.player[i].dead) Projectile.NewProjectile(spawnSource:null, revivePoint, Vector2.Zero, ModContent.ProjectileType<ReviveAnchor>(), 0, 0);

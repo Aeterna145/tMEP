@@ -15,6 +15,7 @@ namespace MEPMod.Common.Class
         public int EnergyCurrent;
         public int EnergyMax;
         public int EnergyRegen;
+        private int regenTimer = 30;
         //Class / subclass vars
         public int CurrentClass;
         public int CurrentSubclass;
@@ -114,6 +115,10 @@ namespace MEPMod.Common.Class
         public override void ProcessTriggers(TriggersSet triggersSet) {
             foreach ((ModKeybind keybind, AbilityType ability) in AbilityKeybinds) {
                 if (ability is null) continue;
+                if (keybind.JustPressed && EnergyCurrent < ability.AbilityEnergyCost){
+                    if (Player.whoAmI == Main.myPlayer) Main.NewText("Not enough energy to cast!");
+                    continue;
+                }
                 if (ability is BaseAbility baseAbility && baseAbility.CanCast(Player) && keybind.JustPressed){
                     EnergyCurrent -= baseAbility.AbilityEnergyCost;
                     baseAbility.Cast(Player);
@@ -150,6 +155,11 @@ namespace MEPMod.Common.Class
                     if (keybind.JustReleased && chargeAbility.ChargeTimer > 0){
                         if (Player.whoAmI == Main.myPlayer) Main.NewText("[DEBUG]: Charge timer reset");
                         chargeAbility.AbilityChargeTime = chargeAbility.ResetTimer;
+                        continue;
+                    }
+                    if (chargeAbility.ChargeTimer == 0 && EnergyCurrent < ability.AbilityEnergyCost){
+                        Main.NewText("Not enough energy to cast!");
+                        continue;
                     }
                     if (chargeAbility.ChargeTimer == 0){
                         EnergyCurrent -= chargeAbility.AbilityEnergyCost;
@@ -176,24 +186,26 @@ namespace MEPMod.Common.Class
             AbilityKeybinds[3].ability = ModContent.GetInstance<T4>();
         }
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit){
-            AbsorbanceBuff abs = new();
-            if (Player.HasBuff<AbsorbanceBuff>() && abs.AbsorbTimer > 600){
-                abs.DamageAbsorbed += damage;
+            if (Player.HasBuff<AbsorbanceBuff>() && ModContent.GetInstance<AbsorbanceBuff>().AbsorbTimer > 0){
+                ModContent.GetInstance<AbsorbanceBuff>().DamageAbsorbed += damage; 
                 damage /= 2;
                 crit = false;
             }
         }
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit){
-            AbsorbanceBuff abs = new();
-            if (Player.HasBuff<AbsorbanceBuff>() && abs.AbsorbTimer > 600){
-                abs.DamageAbsorbed += damage;
-                damage /= 2;
+            if (Player.HasBuff<AbsorbanceBuff>() && ModContent.GetInstance<AbsorbanceBuff>().AbsorbTimer > 0){
+                ModContent.GetInstance<AbsorbanceBuff>().DamageAbsorbed += damage;
+                proj.damage /= 2;
                 crit = false;
             }
         }
         public override void PostUpdateBuffs() => SetHandler(Player);
         public override void PostUpdateMiscEffects(){
-            EnergyCurrent += EnergyRegen;
+            regenTimer--;
+            if (regenTimer < 0){
+                EnergyCurrent += EnergyRegen;
+                regenTimer = 30;
+            }
             if (EnergyCurrent > EnergyMax) EnergyCurrent = EnergyMax;
             AbilitySwitch();
         }

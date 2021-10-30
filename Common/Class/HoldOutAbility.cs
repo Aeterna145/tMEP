@@ -5,7 +5,7 @@ namespace MEPMod.Common.Class
 {
     public abstract class HoldOutAbility : AbilityType
     {
-        public int maxHoldOutTime;
+        public int maxHoldOutTime; //note: remove holdout ability.
         public override void Cast(Player player){
             
         }

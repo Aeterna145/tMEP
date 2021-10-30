@@ -17,6 +17,7 @@
     <Folder Include="Assets\Sounds\NPC\" />
     <Folder Include="Common\Class\SubclassAbilities\Berserker\" />
     <Folder Include="Common\Class\SubclassAbilities\Paladin\" />
+    <Folder Include="Common\Perk\" />
     <Folder Include="Content\Items\Consumables\TempClassSubclass\" />
     <Folder Include="Content\Items\Consumables\Summon\" />
     <Folder Include="Content\Items\Consumables\Potions\" />

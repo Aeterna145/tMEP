@@ -38,21 +38,17 @@ As of right now, we have a few things planned. Here's what to expect in the comi
 
 VERSION NOTES:
 ==============
-Here is what you'll see in Version 0.25:
+Here is what you'll see in Version 0.26.5:
 - REVIVAL SYSTEM TESTING
 TESTING OBJECTIVES:
-+ Multiplayer compatibility,
-+ Revive Anchor spawns and is interactable,
-+ Player is revived and teleported to proper location,
-+ Test for all players, not just your own
++ Currently being rewritten. Not suitable for testing.
 
-- CLASS / SUBCLASS SYSTEM TESTING [Round One: Abilities / Cleric and Warlock basic concept testing]
-*Ability functions are limited to test text for PoC. Will be implemented in v0.25.5 or v0.3.
+- CLASS / SUBCLASS SYSTEM TESTING [Round One.Five: Cleric Abilities testing]
 TESTING OBJECTIVES: 
 + Single and Multiplayer compatibility, 
 + Abilities cast properly, 
-+ Subclasses switch properly (stats change accordingly), 
-+ Abilities execute as written
++ Abilities (now with effects) cast with correct values and functions,
++ Abilities tested do not make the game cry (crashes, bugs, etc.)
 
 NEXT UPDATE:
 =============
@@ -63,3 +59,8 @@ Here's what to expect in Version 0.3:
 - XP SYSTEMS
 - QUEST SYSTEM TESTING [Round One: Proof of concept]
 - MULTIPLAYER FINE-TUNING
+
+TESTERS NOTES:
++ Ensure you have Jopojelly's Cheat Sheet installed and enabled, this will help with gaining access to currently unobtainable content.
++ Ensure you're in the discord. Your reports of bugs are vital to getting everything squared away!
++ Ensure you're not playing with other content mods active. (Not testing for compatibility at the given moment)
