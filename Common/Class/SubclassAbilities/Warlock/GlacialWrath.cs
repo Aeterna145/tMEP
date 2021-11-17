@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MEPMod.Content.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace MEPMod.Common.Class.SubclassAbilities.Warlock
 {
@@ -15,6 +13,7 @@ namespace MEPMod.Common.Class.SubclassAbilities.Warlock
             AbilityEnergyCost = 45;
         }
         public override void Cast(Player player){
+            Projectile.NewProjectile(Projectile.GetNoneSource(), new Vector2(player.Center.X, player.Center.Y), Main.MouseWorld.ToScreenPosition(), ModContent.ProjectileType<GlacialWrathProj>(), AbilityDamage, player.GetKnockback(DamageClass.Generic));
         }
     }
 }

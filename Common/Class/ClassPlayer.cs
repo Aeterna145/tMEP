@@ -6,6 +6,7 @@ using MEPMod.Common.Class.SubclassAbilities.Cleric;
 using Terraria.ModLoader.IO;
 using MEPMod.Common.Class.SubclassAbilities.Warlock;
 using MEPMod.Content.Buffs;
+using MEPMod.Common.Class.SubclassAbilities.Paladin;
 
 namespace MEPMod.Common.Class
 {
@@ -50,6 +51,7 @@ namespace MEPMod.Common.Class
                 case 1:
                     switch (CurrentSubclass){
                         case 1: //Paladin abilities
+                            SetAbilities<ShieldToss, PhalanxGuard, Bastion, AeonMaul>();
                             break;
                         case 2: //Berserker abilities
                             break;
@@ -98,12 +100,14 @@ namespace MEPMod.Common.Class
                         player.statDefense -= 10;
                         player.statLifeMax2 += 50;
                         player.statManaMax2 += 100;
+                        EnergyMax = 250;
                         break;
                     case 6: //Warlock
                         player.GetDamage(DamageClass.Magic) *= 1.50F;
                         player.statDefense += 20;
                         player.statLifeMax2 += 75;
                         player.statManaMax2 += 150;
+                        EnergyMax = 300;
                         break;
                     case 7: //CONFIDENTIAL (EW)
                         break;
@@ -172,6 +176,7 @@ namespace MEPMod.Common.Class
                         chargeAbility.AbilityChargeTime = chargeAbility.ResetTimer;
                     }
                 }
+
             }
         }
         public void SetAbilities<T1, T2, T3, T4>() 
@@ -195,8 +200,36 @@ namespace MEPMod.Common.Class
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit){
             if (Player.HasBuff<AbsorbanceBuff>() && ModContent.GetInstance<AbsorbanceBuff>().AbsorbTimer > 0){
                 ModContent.GetInstance<AbsorbanceBuff>().DamageAbsorbed += damage;
-                proj.damage /= 2;
+                damage /= 2;
                 crit = false;
+            }
+        }
+        public override void OnHitByNPC(NPC npc, int damage, bool crit){
+            if (Player.HasBuff<UniversalSoulBuffOne>() && ModContent.GetInstance<UniversalSoulBuffOne>().SoulOneTimer > 0)
+            {
+                Player.statDefense += 5;
+                Player.endurance += 0.2F;
+            }
+        }
+        public override void OnHitByProjectile(Projectile proj, int damage, bool crit){
+            if (Player.HasBuff<UniversalSoulBuffOne>() && ModContent.GetInstance<UniversalSoulBuffOne>().SoulOneTimer > 0)
+            {
+                Player.statDefense += 5;
+                Player.endurance += 0.2F;
+            }
+        }
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit){
+            if (Player.HasBuff<UniversalSoulBuffTwo>()){
+                Player.statLife += 15;
+                EnergyCurrent += 5;
+                if (CurrentClass == 2) Player.statMana += 20;
+            }
+        }
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit){
+            if (Player.HasBuff<UniversalSoulBuffTwo>()){
+                Player.statLife += 15;
+                EnergyCurrent += 5;
+                if (CurrentClass == 2) Player.statMana += 20;
             }
         }
         public override void PostUpdateBuffs() => SetHandler(Player);
